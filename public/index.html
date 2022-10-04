@@ -22,6 +22,9 @@
         })
 
         socket.emit('mensaje', { nombre: 'Pedro' })
+        socket.on('mensaje', function (payload) {
+            console.log(payload)
+        })
     </script>
 </body>
 
