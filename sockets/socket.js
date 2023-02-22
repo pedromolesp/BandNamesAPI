@@ -7,8 +7,9 @@ io.on('connection', client => {
         console.log('Mensaje!', payload.nombre);
         io.emit('mensaje', { admin: 'Mensaje' })
     })
-    socket.on('emitir-mensaje', (payload) => {
-        io.emit('nuevo-mensaje', payload); //emite a todos
+    client.on('emitir-mensaje', (payload) => {
+        // console.log(payload);
+        // io.emit('nuevo-mensaje', payload); //emite a todos
         client.broadcast.emit('nuevo-mensaje', payload); //emite a todos menos al emisor
     })
 });
