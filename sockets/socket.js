@@ -5,7 +5,7 @@ const Bands = require('../models/bands');
 const bands = new Bands();
 
 bands.addBand(new Band("Billy Talent"))
-bands.addBand(new Band("Heroes del Silencio"))
+bands.addBand(new Band("Breaking Benjamin"))
 bands.addBand(new Band("Los Zigarros"))
 bands.addBand(new Band("Unsun"))
 
@@ -20,9 +20,13 @@ io.on('connection', client => {
         console.log('Mensaje!', payload.nombre);
         io.emit('mensaje', { admin: 'Mensaje' })
     })
-    client.on('emitir-mensaje', (payload) => {
-        // console.log(payload);
-        // io.emit('nuevo-mensaje', payload); //emite a todos
-        client.broadcast.emit('nuevo-mensaje', payload); //emite a todos menos al emisor
+    client.on('vote-band', (payload) => {
+        bands.voteBand(payload.id);
+        io.emit('active-bands', bands.getBands());
     })
+    // client.on('emitir-mensaje', (payload) => {
+    //     // console.log(payload);
+    //     // io.emit('nuevo-mensaje', payload); //emite a todos
+    //     client.broadcast.emit('nuevo-mensaje', payload); //emite a todos menos al emisor
+    // })
 });
