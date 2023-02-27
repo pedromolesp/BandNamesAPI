@@ -24,6 +24,13 @@ io.on('connection', client => {
         bands.voteBand(payload.id);
         io.emit('active-bands', bands.getBands());
     })
+    client.on('create-band', (payload) => {
+        let banda = new Band(payload.name)
+        bands.addBand(banda);
+        console.log('Bndas!', bands);
+
+        io.emit('active-bands', bands.getBands());
+    })
     // client.on('emitir-mensaje', (payload) => {
     //     // console.log(payload);
     //     // io.emit('nuevo-mensaje', payload); //emite a todos
